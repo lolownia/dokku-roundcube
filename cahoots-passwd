@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ACCOUNTS=/tmp/docker-mailserver/postfix-accounts.cf
+
+read userpass
+USER=$(echo "${userpass}"|cut -d : -f 1)
+PASS=$(echo "${userpass}"|cut -d : -f 2-)
+HASH=$(doveadm pw -s SHA512-CRYPT -u "$USER" -p "$PASS")
+
+sed -iorig "s/^${USER}|.*/${USER}|${HASH}/" $ACCOUNTS
