@@ -2,10 +2,13 @@
 
 // Load the SQL Schema if the database is empty
 
-$db_host = (getenv('DATABASE_HOST') ? getenv('DATABASE_HOST') : 'localhost');
-$db_name = (getenv('DATABASE_NAME') ? getenv('DATABASE_NAME') : 'roundcube');
-$db_user = (getenv('DATABASE_USER') ? getenv('DATABASE_USER') : 'roundcube');
-$db_pass = (getenv('DATABASE_PASS') ? getenv('DATABASE_PASS') : '');
+$dsn=$_ENV['DATABASE_URL'];
+preg_match( '|([a-z0-9]+)://([^:]*)(:(.*))?@([A-Za-z0-9\.-]*)(:([0-9]*))?(/([0-9a-zA-Z_/\.-]*))|', $dsn, $matches);
+
+$db_host = $matches[5];
+$db_user = $matches[2];
+$db_pass = $matches[4];
+$db_name = $matches[9];
 
 $dsn = "mysql:host=$db_host;dbname=$db_name";
 $db = new PDO($dsn, $db_user, $db_pass);
