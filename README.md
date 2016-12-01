@@ -1,15 +1,30 @@
-# Roundcube Docker
+# Roundcube Docker (Dokku support)
 
 [![Docker Repository on Quay.io](https://quay.io/repository/macropin/roundcube/status "Docker Repository on Quay.io")](https://quay.io/repository/macropin/roundcube)
 [![](https://badge.imagelayers.io/macropin/roundcube:latest.svg)](https://imagelayers.io/?images=macropin/roundcube:latest)
 
 Production ready Docker container for [Roundcube](https://github.com/roundcube/roundcubemail).
 
+
 ## Features
 
 - Uses [debian](https://registry.hub.docker.com/_/debian/) base image
 - Thin Container. Uses linked [MariaDB](https://registry.hub.docker.com/_/mariadb/) and IMAP containers for those services
 - Installs latest Roundcube cleanly from Git source
+
+## Usage with dokku
+
+Push the repository to dokku remote, as `roundcube` app, then:
+```sh
+dokku mariadb:create roundcube
+dokku mariadb:link roundcube roundcube
+dokku config:set roundcube \
+ DEFAULT_HOST=ssl://imap.server.com:993 \
+ SMTP_SERVER=tls://smtp.server.com:587 \
+ MPM_START=1 MPM_MINSPARE=0 MPM_MAXSPARE=2 MPM_MAXWORKERS=20
+```
+
+You need to have dokku mariadb plugin enabled. 
 
 ## Usage
 
