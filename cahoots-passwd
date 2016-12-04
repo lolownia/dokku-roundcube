@@ -7,4 +7,6 @@ USER=$(echo "${userpass}"|cut -d : -f 1)
 PASS=$(echo "${userpass}"|cut -d : -f 2-)
 HASH=$(doveadm pw -s SHA512-CRYPT -u "$USER" -p "$PASS")
 
-sed -iorig "s/^${USER}|.*/${USER}|${HASH}/" $ACCOUNTS
+sed -iorig "s/^${USER}|.*/${USER}|${HASH}/" $ACCOUNTS || exit 1
+
+exit 0

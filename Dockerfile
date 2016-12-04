@@ -41,7 +41,7 @@ COPY config.inc.php /var/www/html/config/config.inc.php
 
 COPY password.config.inc.php /var/www/html/plugins/password/config.inc.php
 COPY cahoots-passwd /usr/local/bin/cahoots-passwd
-RUN chmod +x /usr/local/bin/cahoots-passwd
+RUN chgrp 5000 /usr/local/bin/cahoots-passwd && chmod 2755 /usr/local/bin/cahoots-passwd
 
 # Add bootstrap tool
 ADD bootstrap.php /
