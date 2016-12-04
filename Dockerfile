@@ -13,7 +13,7 @@ RUN apt-get update && \
     apt-get install -y apache2-mpm-prefork ca-certificates && \
     apt-get install -y php5 php-pear php5-mysql php5-pgsql php5-sqlite php5-mcrypt php5-intl php5-ldap \
     # just to get the doveadm utility:
-    dovecot-core && \
+    dovecot-core sudo && \
     # Install Pear Requirements
     pear install mail_mime mail_mimedecode net_smtp net_idna2-beta auth_sasl net_sieve crypt_gpg && \
     # Cleanup
@@ -41,7 +41,9 @@ COPY config.inc.php /var/www/html/config/config.inc.php
 
 COPY password.config.inc.php /var/www/html/plugins/password/config.inc.php
 COPY cahoots-passwd /usr/local/bin/cahoots-passwd
-RUN chgrp 5000 /usr/local/bin/cahoots-passwd && chmod 2755 /usr/local/bin/cahoots-passwd
+RUN chgrp 5000 /usr/local/bin/cahoots-passwd && \
+    chmod 2755 /usr/local/bin/cahoots-passwd && \
+    addgroup --gid 5000 mailserver && usermod -aG mailserver www-data
 
 # Add bootstrap tool
 ADD bootstrap.php /
