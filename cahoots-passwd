@@ -1,12 +1,16 @@
 #!/bin/bash
 
 ACCOUNTS=/tmp/docker-mailserver/postfix-accounts.cf
+TFILE=`mktemp --tmpdir postfix-accounts.XXXXX`
+trap "rm -f $TFILE" 0 1 2 3 15
 
 read userpass
 USER=$(echo "${userpass}"|cut -d : -f 1)
 PASS=$(echo "${userpass}"|cut -d : -f 2-)
 HASH=$(doveadm pw -s SHA512-CRYPT -u "$USER" -p "$PASS")
 
-sed -iorig "s/^${USER}|.*/${USER}|${HASH}/" $ACCOUNTS || exit 1
+sed "s?^${USER}|.*?${USER}|${HASH}?" $ACCOUNTS > $TFILE || exit 1
+cat $TFILE > $ACCOUNTS
+
 
 exit 0
