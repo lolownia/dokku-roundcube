@@ -78,7 +78,7 @@ $config['product_name'] = 'Webmail';
 // PLUGINS
 // ----------------------------------
 // List of active plugins (in plugins/ directory)
-$config['plugins'] = array();
+$config['plugins'] = array('password');
 
 // Set the spell checking engine. Possible values:
 // - 'googie'  - the default (also used for connecting to Nox Spell Server, see 'spellcheck_uri' setting)
