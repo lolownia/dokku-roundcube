@@ -52,6 +52,8 @@ $config['smtp_server'] = getenv('SMTP_SERVER');
 // deprecated SSL over SMTP (aka SMTPS))
 $config['smtp_port'] = getenv('SMTP_PORT');
 
+$config['smtp_debug'] =  true;
+
 // SMTP username (if required) if you use %u as the username Roundcube
 // will use the current username for login
 $config['smtp_user'] = '%u';
