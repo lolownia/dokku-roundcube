@@ -53,6 +53,8 @@ $config['smtp_server'] = getenv('SMTP_SERVER');
 $config['smtp_port'] = getenv('SMTP_PORT');
 
 $config['smtp_debug'] =  true;
+$config['smtp_auth_type'] = 'PLAIN';
+
 
 // SMTP username (if required) if you use %u as the username Roundcube
 // will use the current username for login
